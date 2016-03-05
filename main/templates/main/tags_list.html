@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tags</title>
+</head>
+<body>
+    <h1>A list of your tags</h1>
+    <ul>
+        {% for tag in all_tags %}
+            <li> { tag } </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
