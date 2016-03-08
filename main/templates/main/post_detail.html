@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Post detail</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
 </head>
 <body>
-    <h1>Post detail</h1>
+    <div class="page-header"></div>
+        <h1>My travel notebook</h1>
+    <div>
+    <div class="post">
+        <h1>{{ post.title }}</h1>
+        <p>Note: {{ post.text }}</p>
+        {% if post.url %}
+            <p>Website link: {{ post.url }}</p>
+        {% endif %}
+        <p>Date: {{ post.created_date }}</p>
+        <p>Trip:{{ post.trip.title }} </p>
+    </div>
 
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Trip detail</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
+</head>
+<body>
+     <div class="page-header">
+        <div>
+            <h1>My travel notebook</h1>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="">Add new trip</a></li>
+                <li><a href="">Add new post</a></li>
+                <li><a href="">Show trips</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+    <div class="main-content">
+        <div class="trip" >
+            <h2>Trip - {{ trip.title }}</h2>
+            <p>{{ trip.text }}</p>
+            <p>Country: {{ trip.country }}</p>
+            <p>Start date: {{ trip.date_start }}</p>
+            <p>End date: {{ trip.date_end }}</p>
+        </div>
+        <div class="post-list">
+        <h3> List of posts related to this trip:</h3>
+        {% for post in trip.post_set.all %}
+            <div class="post">
+                <h4>{{ post.title }}</h4>
+                <p>Note: {{ post.text }}</p>
+                {% if post.url %}
+                    <p>Website link: {{ post.url }}</p>
+                {% endif %}
+                <p>Date: {{ post.created_date }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

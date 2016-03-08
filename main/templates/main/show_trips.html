@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All trips</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
+
+</head>
+<body>
+     <div class="page-header">
+        <div>
+            <h1>My travel notebook</h1>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="">Add new trip</a></li>
+                <li><a href="">Add new post</a></li>
+                <li><a href="">Show trips</a></li>
+            </ul>
+        </div>
+    </div>
+    <h2>All trips</h2>
+     <div class="main-content">
+        {% if list_of_trips %}
+            {% for trip in list_of_trips %}
+                <div class="trip">
+                    <h3>{{ trip.title }}</h3>
+                    <p>{{ trip.text }}</p>
+                    <p>Country: {{ trip.country }}</p>
+                    <ul class="dates">
+                    {% if trip.date_start and trip.date_end %}
+                        <li>Start date: {{ trip.date_start }}</li>
+                        <li>End date: {{ trip.date_end }}</li>
+                    {% endif %}
+                    </ul>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No trips are available.</p>
+        {% endif %}
+     </div>
+</body>
+</html>

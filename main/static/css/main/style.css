@@ -1,0 +1,111 @@
+* {
+  margin:0;
+  padding:0;
+  border: 0 none;
+  position: relative;
+}
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  padding : 15px;
+  background: url(images/main-boat.jpg) no-repeat center fixed;
+  background-size: cover;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  color: #19334d;
+ }
+
+
+h1 {
+  font-size: 70px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 15px;
+  margin-left: 15px;
+  padding: 5px 5px 5px 5px;
+  font-size: 30px;
+
+}
+
+h3 {
+  padding: 5px 3px 5px 10px;
+  font-size: 25px;
+}
+
+h4 {
+  padding: 5px 3px 5px 10px;
+  font-size: 15px;
+}
+
+div {
+}
+
+p {
+  margin: 15px;
+  font-size: 15px;
+}
+
+ul {
+margin-bottom: 25px;
+}
+
+
+a {
+  text-decoration: none;
+  color: #19334d;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+
+ul li {
+  display: inline;
+  padding-right: 30px;
+  font-size: 15px;
+  margin-left: 15px;
+
+}
+
+
+.main-content {
+    width: 550px;
+    margin-left: 15px;
+}
+
+.page-header {
+    padding: 0  3px    70px     0;
+    color: #19334d;
+}
+
+.nav {
+    padding-right: 20px;
+    text-align: center;
+
+
+}
+
+.nav li {
+    font-size: 25px;
+
+}
+
+.trip{
+  border-radius: 2px;
+  background-color: #ececf8;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.post-list{
+  border-radius: 2px;
+  background-color: #ececf8;
+  margin-bottom: 10px;
+  padding: 10px;
+}
