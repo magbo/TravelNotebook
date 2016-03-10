@@ -13,7 +13,7 @@ body {
   padding : 15px;
   background: url(images/main-boat.jpg) no-repeat center fixed;
   background-size: cover;
-  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-family: 'Lato', Arial, sans-serif;
   color: #19334d;
  }
 
@@ -98,14 +98,21 @@ ul li {
 
 .trip{
   border-radius: 2px;
-  background-color: #ececf8;
+  background-color:rgba(246,243,243,0.8);
   margin-bottom: 10px;
   padding: 10px;
 }
 
 .post-list{
   border-radius: 2px;
-  background-color: #ececf8;
+  background-color:rgba(246,243,243,0.8);
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.post {
+  border-radius: 2px;
+  background-color:rgba(246,243,243,0.8);
   margin-bottom: 10px;
   padding: 10px;
 }
