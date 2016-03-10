@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'main'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^new_note/$', views.new_note, name='new_note'),
