@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Travel app</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-</head>
-<body>
-    <div class="page-header">
-        <div>
-            <h1>My travel notebook</h1>
-        </div>
-        <div class="nav">
-            <ul>
-                <li><a href="">Add new trip</a></li>
-                <li><a href="">Add new post</a></li>
-                <li><a href="{% url 'main:show_trips' %}">Show trips</a></li>
-            </ul>
-        </div>
-    </div>
-</body>
-</html>
+{% extends "main/base.html" %}
+
+{% block title %}Travel app{% endblock %}
+

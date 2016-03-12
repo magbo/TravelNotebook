@@ -1,36 +1,23 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post detail</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+{% extends "main/base.html" %}
 
-</head>
-<body>
-    <div class="page-header">
-        <div>
-            <h1><a href="{% url 'main:index' %}">My travel notebook</a></h1>
-        </div>
-        <div class="nav">
-            <ul>
-                <li><a href="">Add new trip</a></li>
-                <li><a href="">Add new post</a></li>
-                <li><a href="{% url 'main:show_trips' %}">Show trips</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="main-content">
-        <div class="post">
-            <h2>{{ post.title }}</h2>
-            <p>Note: {{ post.text }}</p>
-            {% if post.url %}
-                <p>Website link: {{ post.url }}</p>
-            {% endif %}
-            <p>Date: {{ post.created_date }}</p>
-            <p>Trip:{{ post.trip.title }} </p>
-        </div>
-    </div>
-</body>
-</html>
+{% block title %}Post detail{% endblock %}
+
+{% block main-content %}
+<div class="post">
+    <h2>{{ post.title }}</h2>
+    <p>Note: {{ post.text }}</p>
+    {% if post.url %}
+        <p>Website link: {{ post.url }}</p>
+    {% endif %}
+    <p>Date: {{ post.created_date }}</p>
+    <p>Trip: {{ post.trip.title }} </p>
+    {% if post_tags %}
+        <p>Tags:</p>
+        <ul class="post-tags">
+    {% endif %}
+    {% for tag in post_tags %}
+            <li> {{ tag.value }} </li>
+    {% endfor %}
+        </ul> 
+</div>
+{% endblock %}   

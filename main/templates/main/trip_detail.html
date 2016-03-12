@@ -1,51 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load staticfiles %}
-<head>
-    <meta charset="UTF-8">
-    <title>Trip detail</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+{% extends "main/base.html" %}
 
-</head>
-<body>
-     <div class="page-header">
-        <div>
-            <h1><a href="{% url 'main:index' %}">My travel notebook</a></h1>
-        </div>
-        <div class="nav">
-            <ul>
-                <li><a href="">Add new trip</a></li>
-                <li><a href="">Add new post</a></li>
-                <li><a href="{% url 'main:show_trips' %}">Show trips</a></li>
-            </ul>
-        </div>
-    </div>
-    <div>
-    <div class="main-content">
-        <div class="trip" >
-            <h2>Trip - {{ trip.title }}</h2>
-            <p>{{ trip.text }}</p>
-            <p>Country: {{ trip.country }}</p>
-            <p>Start date: {{ trip.date_start }}</p>
-            <p>End date: {{ trip.date_end }}</p>
-        </div>
-        <div class="post-list">
-        <h3> List of posts related to this trip:</h3>
-        {% for post in trip.post_set.all %}
-            <div class="post">
-                <h4>{{ post.title }}</h4>
-                <p>Note: {{ post.text }}</p>
-                {% if post.url %}
-                    <p>Website link: {{ post.url }}</p>
-                {% endif %}
-                <p>Date: {{ post.created_date }}</p>
-                <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
+{% block title %}All trips{% endblock %}
 
+{% block main-content %}
 
-            </div>
-        {% endfor %}
+<div class="trip" >
+    <h2>Trip - {{ trip.title }}</h2>
+    <p>{{ trip.text }}</p>
+    <p>Country: {{ trip.country }}</p>
+    <ul class="dates">
+        {% if trip.date_start and trip.date_end %}
+            <li>Start date: {{ trip.date_start }}</li>
+            <li>End date: {{ trip.date_end }}</li>
+        {% else %} <li>Dates: TBA</li>
+        {% endif %}
+    </ul>
+</div>
+<div class="post-list">
+{% if trip_posts %}
+    <h3> List of posts related to this trip:</h3>
+    {% for post in trip_posts %}
+        <div class="post">
+            <h4>{{ post.title }}</h4>
+            <p>Note: {{ post.text }}</p>
+            {% if post.url %}
+                <p>Website link: {{ post.url }}</p>
+            {% endif %}
+            <p>Date: {{ post.created_date }}</p>
+            <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
         </div>
-    </div>
-</body>
-</html>
+    {% endfor %}
+{% else %}
+    <h4> There are no posts related to this trip.</h4>
+{% endif %}
+</div>
+
+{% endblock %}
+   

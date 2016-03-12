@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My amazing site{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}"/>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+    <div class="page-header">
+        <div>
+            <h1><a href="{% url 'main:index' %}">My travel notebook</a></h1>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="">Add new trip</a></li>
+                <li><a href="">Add new post</a></li>
+                <li><a href="{% url 'main:show_trips' %}">Show trips</a></li>
+                <li><a href="{% url 'main:tags_list' %}">Tags</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+       {% block main-content %}{% endblock %}
+    </div>
+</body>
+</html>

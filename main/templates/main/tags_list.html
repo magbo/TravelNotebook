@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>All Tags</title>
-</head>
-<body>
-    <h1>A list of your tags</h1>
-    <ul>
-        {% for tag in all_tags %}
-            <li> {{ tag }} </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "main/base.html" %}
+
+{% block title %}All tags{% endblock %}
+
+
+{% block main-content %}
+<div class='tags-container'>
+	<h3> Tags</h3>
+	<ul class="tags">
+	{% for tag in tags %}
+	    <li class="tag-in-list"><a href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
+	{% endfor %}
+	</ul>
+</div>	
+{% endblock %}
