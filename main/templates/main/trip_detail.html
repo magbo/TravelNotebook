@@ -5,28 +5,17 @@
 {% block main-content %}
 
 <div class="trip" >
-    <h2>Trip - {{ trip.title }}</h2>
-    <p>{{ trip.text }}</p>
-    <p>Country: {{ trip.country }}</p>
-    <ul class="dates">
-        {% if trip.date_start and trip.date_end %}
-            <li>Start date: {{ trip.date_start }}</li>
-            <li>End date: {{ trip.date_end }}</li>
-        {% else %} <li>Dates: TBA</li>
-        {% endif %}
-    </ul>
+    {% include "main/trip.html" %}
+    <button type="button"> <a href="{% url 'main:post_new' %}">Add post</a></button>
+    <button type="button"> <a href="{% url 'main:trip_edit' pk=trip.pk %}">Edit trip</a></button>
+
 </div>
 <div class="post-list">
 {% if trip_posts %}
     <h3> List of posts related to this trip:</h3>
     {% for post in trip_posts %}
         <div class="post">
-            <h4>{{ post.title }}</h4>
-            <p>Note: {{ post.text }}</p>
-            {% if post.url %}
-                <p>Website link: {{ post.url }}</p>
-            {% endif %}
-            <p>Date: {{ post.created_date }}</p>
+            {% include "main/post.html" %}
             <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
         </div>
     {% endfor %}

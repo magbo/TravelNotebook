@@ -1,0 +1,16 @@
+
+    <h3>{{ post.title }}</h3>
+    <p>Note: {{ post.text }}</p>
+    {% if post.url %}
+        <p>Website link: {{ post.url }}</p>
+    {% endif %}
+    <p>Date: {{ post.created_date }}</p>
+    <p>Trip: <a href="{% url 'main:trip_detail' pk=post.trip.pk %}">{{ post.trip.title }} </a></p>
+    {% if post_tags %}
+        <p>Tags:</p>
+        <ul class="post-tags">
+    {% endif %}
+    {% for tag in post_tags %}
+            <li><a href="{% url 'main:tag_detail' tag_name=tag.value %}">{{ tag.value }}</a></li>
+    {% endfor %}
+        </ul> 

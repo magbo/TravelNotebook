@@ -6,13 +6,7 @@
     <h2>List of posts with {{ tag.value }} tag</h2>
     {% for post in posts %}
       <div class="post">
-        <h3>{{ post.title }}</h3>
-         <p>Note: {{ post.text }}</p>
-        {% if post.url %}
-          <p>Website link: {{ post.url }}</p>
-        {% endif %}
-        <p>Date: {{ post.created_date }}</p>
-        <p>Trip: {{ post.trip.title }} </p>      
+        {% include "main/post.html" %}  
       </div>
     {% endfor %}  
 {% endblock %} 

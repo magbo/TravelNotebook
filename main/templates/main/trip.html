@@ -1,0 +1,10 @@
+<h2>{{ trip.title }}</h2>
+<p>{{ trip.text }}</p>
+<p>Country: {{ trip.country }}</p>
+<ul class="dates">
+{% if trip.date_start and trip.date_end %}
+    <li>Start date: {{ trip.date_start }}</li>
+    <li>End date: {{ trip.date_end }}</li>
+{% else %} <li>Dates: TBA</li>
+{% endif %}
+</ul>

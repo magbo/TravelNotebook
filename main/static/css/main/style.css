@@ -77,9 +77,6 @@ button {
   background-color: rgba(25,51,77, 0.9);
   border-radius: 2px;
   padding: 6px;
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
 }
 
 button a {

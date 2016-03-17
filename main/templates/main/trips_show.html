@@ -8,16 +8,7 @@
 {% if list_of_trips %}
     {% for trip in list_of_trips %}
         <div class="trip">
-            <h3>{{ trip.title }}</h3>
-            <p>{{ trip.text }}</p>
-            <p>Country: {{ trip.country }}</p>
-            <ul class="dates">
-            {% if trip.date_start and trip.date_end %}
-                <li>Start date: {{ trip.date_start }}</li>
-                <li>End date: {{ trip.date_end }}</li>
-            {% else %} <li>Dates: TBA</li>
-            {% endif %}
-            </ul>
+            {% include "main/trip.html" %}
             <button type="button"> <a href="{% url 'main:trip_detail' trip.id %}">Trip details ...</a></button>
         </div>
     {% endfor %}

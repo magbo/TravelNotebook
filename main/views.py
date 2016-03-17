@@ -1,6 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Trip, Tag, Post
 from .forms import TripForm, PostForm
 
@@ -52,7 +51,7 @@ def trip_detail(request, pk):
         trip_posts = trip.post_set.all
     except Trip.DoesNotExist:
         raise Http404("Trip does not exist")
-    return render(request, 'main/trip_detail.html', {'trip': trip, 'trip_posts': trip_posts})
+    return render(request, 'main/trip_detail.html', {'trip': trip, 'trip_posts': trip_posts, })
 
 
 def trip_new(request):
@@ -74,6 +73,29 @@ def post_new(request):
     else:
         form = PostForm()
         return render(request, 'main/post_new.html', {'form': form})
+
+def post_edit(request, pk):
+    post = get_object_or_404 (Post, pk=pk) 
+    if request.method == "POST": 
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save()
+            return redirect('main:post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'main/post_new.html', {'form': form})  
+
+def trip_edit(request, pk):
+    trip = get_object_or_404 (Trip, pk=pk) 
+    if request.method == "POST": 
+        form = TripForm(request.POST, instance=trip)
+        if form.is_valid():
+            trip = form.save()
+            return redirect('main:trip_detail', pk=trip.pk)
+    else:
+        form = TripForm(instance=trip)
+    return render(request, 'main/trip_new.html', {'form': form})            
+
 
 
 
