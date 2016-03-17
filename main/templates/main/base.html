@@ -15,10 +15,10 @@
         </div>
         <div class="nav">
             <ul>
-                <li><a href="">Add new trip</a></li>
-                <li><a href="">Add new post</a></li>
-                <li><a href="{% url 'main:show_trips' %}">Show trips</a></li>
-                <li><a href="{% url 'main:tags_list' %}">Tags</a></li>
+                <li><a href="{% url 'main:trip_new' %}">Add new trip</a></li>
+                <li><a href="{% url 'main:post_new' %}">Add new post</a></li>
+                <li><a href="{% url 'main:trips_show' %}">Show trips</a></li>
+                <li><a href="{% url 'main:tags_show' %}">Tags</a></li>
             </ul>
         </div>
     </div>

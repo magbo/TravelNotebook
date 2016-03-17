@@ -5,13 +5,12 @@ from . import views
 app_name = 'main'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^new_note/$', views.new_note, name='new_note'),
-    url(r'^new_link/$', views.new_link, name='new_link'),
-    url(r'^new_photo/$', views.new_photo, name='new_photo'),
-    url(r'^post_list/$', views.post_list, name='post_list'),
-    url(r'^post/(?P<post_id>[0-9]+)/$', views.post_detail, name='post_detail'),
+    url(r'^posts_show/$', views.posts_show, name='posts_show'),
+    url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
     url(r'^tags/(?P<tag_name>[a-zA-Z0-9_.-]+)/$', views.tag_detail, name='tag_detail'),
-    url(r'^tags/$', views.tags_list, name='tags_list'),
-    url(r'^show_trips/$', views.show_trips, name='show_trips'),
-    url(r'^trip/(?P<trip_id>[0-9]+)/$', views.trip_detail, name='trip_detail'),
+    url(r'^tags/$', views.tags_show, name='tags_show'),
+    url(r'^trips_show/$', views.trips_show, name='trips_show'),
+    url(r'^trip/(?P<pk>[0-9]+)/$', views.trip_detail, name='trip_detail'),
+    url(r'^trip/new/$', views.trip_new, name='trip_new'),
+    url(r'^post/new/$', views.post_new, name='post_new'),
 ]

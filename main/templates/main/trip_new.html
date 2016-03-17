@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+
+{% block title %}New trip{% endblock %}
+
+{% block main-content %}
+ 
+ <div class='trip'>
+ 	<h3>New trip</h3>
+ 	<form method="POST" class="trip-form">{% csrf_token %}
+ 		{{ form.as_p }}
+ 		<button typr="submit">Save</button> 
+ 	</form>	
+ </div>
+
+{% endblock %}
