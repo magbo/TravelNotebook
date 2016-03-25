@@ -26,7 +26,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    url = models.CharField(max_length=30, blank=True)
+    url = models.URLField(max_length=150, blank=True, null=True)
     tags = models.ManyToManyField(Tag)
 
     #tags are in post rather than tag is having posts

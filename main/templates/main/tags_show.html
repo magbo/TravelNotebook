@@ -7,9 +7,9 @@
 <div class='tags-container'>
 	<h3> Tags</h3>
 	<ul class="tags">
-	{% for tag in tags %}
-	    <li class="tag-in-list"><a href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
-	{% endfor %}
+		{% for tag in tags %}
+		    <li class="tag-in-list"><a href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
+		{% endfor %}
 	</ul>
 </div>	
 {% endblock %}

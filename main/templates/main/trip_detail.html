@@ -1,3 +1,4 @@
+
 {% extends "main/base.html" %}
 
 {% block title %}All trips{% endblock %}
@@ -15,9 +16,12 @@
     <h3> List of posts related to this trip:</h3>
     {% for post in trip_posts %}
         <div class="post">
-            {% include "main/post.html" %}
-            <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
-        </div>
+            {% include "main/post.html" with post=post post_tags=post.tags.all only %}
+        
+            <div>
+                <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
+            </div>
+        </div>    
     {% endfor %}
 {% else %}
     <h4> There are no posts related to this trip.</h4>

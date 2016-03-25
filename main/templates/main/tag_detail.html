@@ -6,7 +6,7 @@
     <h2>List of posts with {{ tag.value }} tag</h2>
     {% for post in posts %}
       <div class="post">
-        {% include "main/post.html" %}  
+           {% include "main/post.html" with post=post post_tags=post.tags.all only %}
       </div>
     {% endfor %}  
 {% endblock %} 
