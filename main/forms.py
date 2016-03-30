@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import AuthenticationForm 
 from django import forms
 from django.forms import ModelForm, Textarea
 
@@ -12,7 +13,9 @@ class TripForm(forms.ModelForm):
 			'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 		}
-
+	def __init__(self, *args, **kwargs):
+		self.user = kwargs.pop('owner', None)
+		super(TripForm, self).__init__(*args, **kwargs)	
 
 class PostForm(forms.ModelForm):
 	class Meta:
@@ -23,3 +26,8 @@ class PostForm(forms.ModelForm):
 			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 			'url':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 		}
+
+class LoginForm(AuthenticationForm):
+	username = forms.CharField(label="Username", max_length=30)
+	user_email = forms.EmailField(label="Email", help_text='A valid email address, please.')
+	password = forms.CharField(label="Password", max_length=30)
