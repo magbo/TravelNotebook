@@ -5,6 +5,8 @@
 
 {% block main-content %}
 
+{% include "main/messages.html" %}
+
 <div class="trip" >
     {% include "main/trip.html" %}
     <button type="button"> <a href="{% url 'main:post_new' %}">Add post</a></button>
@@ -23,6 +25,21 @@
             </div>
         </div>    
     {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if trip_posts.has_previous %}
+                <a href="?page={{ trip_posts.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ trip_posts.number }} of {{ trip_posts.paginator.num_pages }}.
+            </span>
+
+            {% if trip_posts.has_next %}
+                <a href="?page={{ trip_posts.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
 {% else %}
     <h4> There are no posts related to this trip.</h4>
 {% endif %}

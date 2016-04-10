@@ -13,15 +13,14 @@ class TripForm(forms.ModelForm):
 			'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 		}
-	def __init__(self, *args, **kwargs):
-		self.user = kwargs.pop('owner', None)
-		super(TripForm, self).__init__(*args, **kwargs)	
+
 
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
 		fields = ('trip', 'title', 'text', 'url', 'tags',)		
 		widgets = {
+		
 			'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 			'url':forms.Textarea(attrs={'cols': 80, 'rows': 2}),

@@ -3,8 +3,12 @@
 {% block title %}Post detail{% endblock %}
 
 {% block main-content %}
+
+{% include "main/messages.html" %}
+
 <div class="post">
     {% include "main/post.html" %}
     <button type="button"> <a href="{% url 'main:post_edit' pk=post.pk %}">Edit post</a></button>
+    <button type="button"> <a href="{% url 'main:post_delete' pk=post.pk %}">Delete post</a></button>
 </div>
 {% endblock %}   

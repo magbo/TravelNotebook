@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^trip/new/$', views.trip_new, name='trip_new'),
     url(r'^post/new/$', views.post_new, name='post_new'),
     url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_edit, name='post_edit'),
+    url(r'^post/(?P<pk>[0-9]+)/delete/$', views.post_delete, name='post_delete'),
     url(r'^trip(?P<pk>[0-9]+)/edit/$', views.trip_edit, name='trip_edit'),
 ]

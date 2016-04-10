@@ -31,6 +31,7 @@ class Post(models.Model):
     url = models.URLField(max_length=150, blank=True, null=True)
     tags = models.ManyToManyField(Tag)
 
+
     #tags are in post rather than tag is having posts
 
     def __str__(self):
