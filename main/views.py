@@ -81,8 +81,8 @@ def trips_show(request):
     return render(request, 'main/trips_show.html', context)
 
 @login_required
-def trip_detail(request, pk): 
-    trip = get_object_or_404(Trip, pk=pk)
+def trip_detail(request, slug): 
+    trip = get_object_or_404(Trip, slug=slug)
     if trip.owner.id != request.user.id:
         raise Http404
     else:    
