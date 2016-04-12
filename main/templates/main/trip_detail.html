@@ -10,7 +10,7 @@
 <div class="trip" >
     {% include "main/trip.html" %}
     <button type="button"> <a href="{% url 'main:post_new' %}">Add post</a></button>
-    <button type="button"> <a href="{% url 'main:trip_edit' pk=trip.pk %}">Edit trip</a></button>
+    <button type="button"> <a href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a></button>
 
 </div>
 <div class="post-list">

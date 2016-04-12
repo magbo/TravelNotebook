@@ -57,7 +57,6 @@ def post_new(request):
         form = PostForm(request.POST)
         #form.trip.queryset = Trip.objects.filter(trip_owner=request.user.id)
         #form.fields["trip"].queryset = Trip.objects.filter(owner__trip=request.user)
-
         if form.is_valid():
             post = form.save()
             messages.success(request, 'Post successfully created!')
@@ -72,13 +71,6 @@ def post_new(request):
 def posts_show(request):
     return render(request, 'main/posts_show.html', {})
 
-@login_required
-def trips_show(request):
-    list_of_trips = Trip.objects.filter(owner=request.user).order_by('title')
-    context = {
-        'list_of_trips': list_of_trips
-        }
-    return render(request, 'main/trips_show.html', context)
 
 @login_required
 def trip_detail(request, slug): 
@@ -99,12 +91,12 @@ def trip_detail(request, slug):
             # If page is out of range (e.g. 9999), deliver last page of results.
             trip_posts = paginator.page(paginator.num_pages)
 
-    return render(request, 'main/trip_detail.html', {'trip': trip, 'trip_posts': trip_posts, })
+    return render(request, 'main/trip_detail.html', {'trip': trip, 'trip_posts': trip_posts})
 
 
 @login_required
-def trip_edit(request, pk):
-    trip = get_object_or_404(Trip, pk=pk)
+def trip_edit(request, slug):
+    trip = get_object_or_404(Trip, slug=slug)
     if trip.owner.id != request.user.id:
         raise Http404
     else:    
@@ -113,7 +105,7 @@ def trip_edit(request, pk):
             if form.is_valid():
                 trip = form.save()
                 messages.success(request, 'Trip Saved!')
-                return redirect('main:trip_detail', pk=trip.pk)
+                return redirect('main:trip_detail', slug=trip.slug)
         else:
             form = TripForm(instance=trip)
     return render(request, 'main/trip_new.html', {'form': form})
@@ -121,18 +113,28 @@ def trip_edit(request, pk):
 @login_required
 def trip_new(request):
     if request.method == "POST":
-        form = TripForm(request.POST)
+        form = TripForm(request.POST) 
         if form.is_valid():
             trip = form.save(commit=False) 
             trip.owner = request.user
             trip.save()
             messages.success(request, 'Trip successfully created!')
-            return redirect('main:trip_detail', pk=trip.pk)
+            return redirect('main:trip_detail', slug=trip.slug)
         else:
             messages.error(request, 'Not created yet')     
     else:
         form = TripForm()
     return render(request, 'main/trip_new.html', {'form': form})
+
+
+@login_required
+def trips_show(request):
+    list_of_trips = Trip.objects.filter(owner=request.user).order_by('title')
+    context = {
+        'list_of_trips': list_of_trips
+        }
+    return render(request, 'main/trips_show.html', context)
+
 
 @login_required
 def tag_detail(request, tag_name):
