@@ -25,14 +25,15 @@ def post_detail(request, pk):
     return render(request, 'main/post_detail.html', {'post': post, 'post_tags': post_tags})
 
 @login_required
-def post_delete(request, pk):
+def post_delete(request, pk, slug): #?????
     post = get_object_or_404(Post, pk=pk)
-    trip = post.trip
+    #trip = post.trip
+    slug = Trip.objects.get(slug=post.trip.slug)
     if post.trip.owner.id != request.user.id:
         raise Http404
     else: 
         post.delete()
-    return redirect('main:trip_detail', pk=post.trip.pk)    
+    return redirect('main:trip_detail', slug=slug)   #???? 
 
 
 @login_required
@@ -55,8 +56,6 @@ def post_edit(request, pk):
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
-        #form.trip.queryset = Trip.objects.filter(trip_owner=request.user.id)
-        #form.fields["trip"].queryset = Trip.objects.filter(owner__trip=request.user)
         if form.is_valid():
             post = form.save()
             messages.success(request, 'Post successfully created!')
@@ -64,7 +63,7 @@ def post_new(request):
         else:
             messages.error(request, 'Not created yet')    
     else:
-        form = PostForm()
+        form = PostForm(user=request.user)
     return render(request, 'main/post_new.html', {'form': form})
 
 @login_required

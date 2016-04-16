@@ -16,15 +16,20 @@ class TripForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		owner = kwargs.pop('user')
+		super(PostForm, self).__init__(*args, **kwargs)
+		self.fields['trip'].queryset = self.fields['trip'].queryset.filter(owner=owner)
+
 	class Meta:
 		model = Post
-		fields = ('trip', 'title', 'text', 'url', 'tags',)		
+		fields = ('trip', 'title', 'text', 'url', 'tags')
 		widgets = {
-		
 			'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 			'url':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 		}
+
 
 class LoginForm(AuthenticationForm):
 	username = forms.CharField(label="Username", max_length=30)
