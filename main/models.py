@@ -4,14 +4,16 @@ from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.utils.text import slugify
 
-
+def upload_location(instance, filename):
+    return "%s/%s" %(instance.id, filename) #change to owner for trips then id form posts
 
 class Trip(models.Model):
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)    
     slug = models.SlugField(unique=True)
     text = models.TextField(blank=True)
-    date_start = models.DateField(blank=True, null=True)
-    date_end = models.DateField(blank=True, null=True)
+    date_start = models.DateField(null=True, blank=True)
+    date_end = models.DateField(null=True, blank=True)
     country = models.CharField(max_length=30)
     created_date = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User)
@@ -30,9 +32,10 @@ class Tag(models.Model):
 class Post(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)    
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    url = models.URLField(max_length=150, blank=True, null=True)
+    url = models.URLField(max_length=150, null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
 

@@ -13,33 +13,40 @@
     <button type="button"> <a href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a></button>
 
 </div>
-<div class="post-list">
+<div class="">
 {% if trip_posts %}
     <h3> List of posts related to this trip:</h3>
-    {% for post in trip_posts %}
-        <div class="post">
-            {% include "main/post.html" with post=post post_tags=post.tags.all only %}
-        
-            <div>
-                <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
-            </div>
-        </div>    
-    {% endfor %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if trip_posts.has_previous %}
-                <a href="?page={{ trip_posts.previous_page_number }}">previous</a>
-            {% endif %}
+    <div class="row">
+        <div class="">
+            {% for post in trip_posts %}
+                <div class="post">
+                    {% include "main/post.html" with post=post post_tags=post.tags.all only %}
+                
+                    <div>
+                        <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
+                    </div>
 
-            <span class="current">
-                Page {{ trip_posts.number }} of {{ trip_posts.paginator.num_pages }}.
-            </span>
+                </div>    
+            {% endfor %}
+        </div>
+    </div>    
+    <div class="col-md-6 footer">
+        <div class="pagination">
+            <span class="step-links">
+                {% if trip_posts.has_previous %}
+                    <a href="?page={{ trip_posts.previous_page_number }}">previous</a>
+                {% endif %}
 
-            {% if trip_posts.has_next %}
-                <a href="?page={{ trip_posts.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
+                <span class="current">
+                    Page {{ trip_posts.number }} of {{ trip_posts.paginator.num_pages }}.
+                </span>
+
+                {% if trip_posts.has_next %}
+                    <a href="?page={{ trip_posts.next_page_number }}">next</a>
+                {% endif %}
+            </span>   
+        </div>
+    </div>    
 {% else %}
     <h4> There are no posts related to this trip.</h4>
 {% endif %}

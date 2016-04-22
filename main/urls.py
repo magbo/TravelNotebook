@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),    
     url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_edit, name='post_edit'),
     url(r'^post/(?P<pk>[0-9]+)/delete/$', views.post_delete, name='post_delete'),
+    url(r'^photos/$', views.photos_show, name='photos_show'),
+    url(r'^countries/$', views.countries_show, name='countries_show'),
 ]

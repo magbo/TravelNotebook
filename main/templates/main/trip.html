@@ -1,6 +1,10 @@
+
 <h2>{{ trip.title }}</h2>
-<p>{{ trip.text }}</p>
+{% if trip.image %}
+	<img src="{{ trip.image.url }}" class="img-responsive"/>
+{% endif %}	
 <p><label>Country:</label> {{ trip.country }}</p>
+<p>{{ trip.text|linebreaks }}</p>
 <ul class="dates">
 {% if trip.date_start and trip.date_end %}
     <li><label>Start date:</label> {{ trip.date_start }}</li>

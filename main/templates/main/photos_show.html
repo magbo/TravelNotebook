@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+
+{% block title %}Photos{% endblock %}
+
+{% block main-content %}
+
+{% for trip in trips %}
+
+<div>
+		
+	{% for post in posts %}
+		{% if post.trip == trip %}		
+			{% if post.image %}
+			<div class="image-container">
+			    <p>{{post.title}}</p>
+				<image src="{{ post.image.url }}" class="img-responsive"/>
+				<p>Trip: <a href="{% url 'main:trip_detail' slug=trip.slug %}">{{ trip.title }}</a></p>
+			</div>
+			{% endif %}	
+		{%endif%}	
+	{%endfor%}	
+
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}

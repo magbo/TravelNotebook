@@ -6,9 +6,9 @@
 
 {% include "main/messages.html" %}
 
-<div class="post">
+<div class="post" class="col-sm-6">
     {% include "main/post.html" %}
     <button type="button"> <a href="{% url 'main:post_edit' pk=post.pk %}">Edit post</a></button>
-    <button type="button"> <a href="{% url 'main:post_delete' pk=post.pk slug=post.trip.slug %}">Delete post</a></button>
+    <button type="button"> <a href="{% url 'main:post_delete' pk=post.pk %}">Delete post</a></button>
 </div>
 {% endblock %}   

@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+
+{% block title %}Photos{% endblock %}
+
+{% block main-content %}
+
+{% for trip in trips %}
+ 	</h3><a href="{% url 'main:trip_detail' slug=trip.slug %}">{{ trip.country }}</a></h3>
+ 	{% if trip.image %}
+		<img src="{{ trip.image.url }}" class="img-responsive"/>
+	{% endif %}	
+  	{% for post in posts %}
+		{% if post.trip == trip %}
+      		<div class="post">
+	    		{% include "main/post.html" %}
+	    		<button type="button"> <a href="{% url 'main:post_edit' pk=post.pk %}">Edit post</a></button>
+	   			<button type="button"> <a href="{% url 'main:post_delete' pk=post.pk %}">Delete post</a></button>
+	  		</div>
+		{% endif %}
+	{% endfor %}
+{% endfor %}
+
+{% endblock %}

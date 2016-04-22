@@ -11,6 +11,19 @@ from .forms import TripForm, PostForm
 
 User = get_user_model()
 
+# def paginate(request, objects_to_paginate):
+#     paginator = Paginator(objects_to_paginate, 2) # Show 25 contacts per page
+
+#     page = request.GET.get('page')
+#     try:
+#         objects_to_paginate = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         objects_to_paginate = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         objects_to_paginate = paginator.page(paginator.num_pages)
+
 
 def index(request):
     return render(request, 'main/index.html', {})
@@ -25,15 +38,13 @@ def post_detail(request, pk):
     return render(request, 'main/post_detail.html', {'post': post, 'post_tags': post_tags})
 
 @login_required
-def post_delete(request, pk, slug): #?????
+def post_delete(request, pk): 
     post = get_object_or_404(Post, pk=pk)
-    #trip = post.trip
-    slug = Trip.objects.get(slug=post.trip.slug)
     if post.trip.owner.id != request.user.id:
         raise Http404
     else: 
         post.delete()
-    return redirect('main:trip_detail', slug=slug)   #???? 
+    return redirect('main:trip_detail', slug=post.trip.slug)   
 
 
 @login_required
@@ -43,19 +54,19 @@ def post_edit(request, pk):
         raise Http404
     else: 
         if request.method == "POST":
-            form = PostForm(request.POST, instance=post)
+            form = PostForm(request.POST, request.FILES or None, instance=post, user=request.user)
             if form.is_valid():
                 post = form.save()
                 messages.success(request, 'Saved!')
                 return redirect('main:post_detail', pk=post.pk)
         else:
-            form = PostForm(instance=post)
+            form = PostForm(instance=post, user=request.user)
     return render(request, 'main/post_new.html', {'form': form})
 
 @login_required
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES or None, user=request.user)
         if form.is_valid():
             post = form.save()
             messages.success(request, 'Post successfully created!')
@@ -78,18 +89,18 @@ def trip_detail(request, slug):
         raise Http404
     else:    
         trip_posts = trip.post_set.all().order_by('-created_date')
-        paginator = Paginator(trip_posts, 1) # Show 25 contacts per page
+        # paginate(request, trip_posts)
+        paginator = Paginator(trip_posts, 2) # Show 25 contacts per page
 
         page = request.GET.get('page')
         try:
             trip_posts = paginator.page(page)
         except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
+        # If page is not an integer, deliver first page.
             trip_posts = paginator.page(1)
         except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
+        # If page is out of range (e.g. 9999), deliver last page of results.
             trip_posts = paginator.page(paginator.num_pages)
-
     return render(request, 'main/trip_detail.html', {'trip': trip, 'trip_posts': trip_posts})
 
 
@@ -100,7 +111,7 @@ def trip_edit(request, slug):
         raise Http404
     else:    
         if request.method == "POST":
-            form = TripForm(request.POST, instance=trip)
+            form = TripForm(request.POST, request.FILES, instance=trip)
             if form.is_valid():
                 trip = form.save()
                 messages.success(request, 'Trip Saved!')
@@ -112,7 +123,7 @@ def trip_edit(request, slug):
 @login_required
 def trip_new(request):
     if request.method == "POST":
-        form = TripForm(request.POST) 
+        form = TripForm(request.POST, request.FILES or None) 
         if form.is_valid():
             trip = form.save(commit=False) 
             trip.owner = request.user
@@ -129,6 +140,7 @@ def trip_new(request):
 @login_required
 def trips_show(request):
     list_of_trips = Trip.objects.filter(owner=request.user).order_by('title')
+    # paginate(request, list_of_trips)
     context = {
         'list_of_trips': list_of_trips
         }
@@ -146,7 +158,25 @@ def tags_show(request):
     tags = Tag.objects.order_by('value')
     return render(request, 'main/tags_show.html', {'tags': tags})
 
+@login_required
+def photos_show(request):
+    trips = Trip.objects.filter(owner=request.user).order_by('title')
+    posts = Post.objects.filter(trip__owner=request.user)    
+    context = {
+        'trips': trips,
+        'posts': posts,
+    } 
+    return render(request, 'main/photos_show.html', context) 
 
 
+@login_required
+def countries_show(request):
+    trips = Trip.objects.filter(owner=request.user).order_by('country')
+    posts = Post.objects.filter(trip__owner=request.user)    
+    context = {
+        'trips': trips,
+        'posts': posts,
+    } 
+    return render(request, 'main/countries_show.html', context) 
 
 

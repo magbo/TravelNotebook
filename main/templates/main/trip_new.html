@@ -9,7 +9,7 @@
  
  <div class='trip'>
  	<h3>New trip</h3>
- 	<form method="POST" class="trip-form">{% csrf_token %}
+ 	<form method="POST" class="trip-form" enctype="multipart/form-data">{% csrf_token %}
  		{{ form.as_p }}
  		<button>Save</button> 
  	</form>	

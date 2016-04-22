@@ -2,16 +2,16 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm, Textarea
 
-from .models import Trip, Post
+from .models import Trip, Post, Tag
 
 
 class TripForm(forms.ModelForm):
 	class Meta:
 		model = Trip
-		fields = ('title', 'text', 'date_start', 'date_end', 'country',)
+		fields = ('title', 'image', 'country', 'text', 'date_start', 'date_end')
 		widgets = {
-			'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
-			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+			# 'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
+			# 'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 		}
 
 
@@ -23,11 +23,11 @@ class PostForm(forms.ModelForm):
 
 	class Meta:
 		model = Post
-		fields = ('trip', 'title', 'text', 'url', 'tags')
+		fields = ('trip', 'title', 'text', 'url', 'image', 'tags')
 		widgets = {
-			'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
-			'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
-			'url':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
+			# 'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
+			# 'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+			# 'url':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 		}
 
 

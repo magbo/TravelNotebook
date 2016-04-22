@@ -6,9 +6,9 @@
 
 {% include "main/messages.html" %}
  
- <div class='post'>
+ <div class='post'class='row'>
  	<h3>New post</h3>
- 	<form method="POST" class="post-form">{% csrf_token %}
+ 	<form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
  		{{ form.as_p }}
  		<button type="submit">Save</button> 
  	</form>	
