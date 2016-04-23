@@ -42,7 +42,8 @@ def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.trip.owner.id != request.user.id:
         raise Http404
-    else: 
+    else:
+        messages.success(request, 'Post deleted!') 
         post.delete()
     return redirect('main:trip_detail', slug=post.trip.slug)   
 

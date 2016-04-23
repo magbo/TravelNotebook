@@ -1,8 +1,9 @@
 {% extends "main/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}New trip{% endblock %}
 
-{% block main-content %}
+{% block content %}
 
 {% include "main/messages.html" %}
 
@@ -10,7 +11,8 @@
  <div class='trip'>
  	<h3>New trip</h3>
  	<form method="POST" class="trip-form" enctype="multipart/form-data">{% csrf_token %}
- 		{{ form.as_p }}
+ 		<!-- {{ form.as_p }} -->
+ 		{{ form|crispy }}
  		<button>Save</button> 
  	</form>	
  </div>

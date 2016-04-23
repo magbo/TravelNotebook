@@ -2,7 +2,7 @@
 
 {% block title %}Photos{% endblock %}
 
-{% block main-content %}
+{% block content %}
 
 {% for trip in trips %}
  	</h3><a href="{% url 'main:trip_detail' slug=trip.slug %}">{{ trip.country }}</a></h3>

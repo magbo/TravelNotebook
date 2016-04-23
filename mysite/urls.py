@@ -24,9 +24,10 @@ from django.contrib.auth import views
 urlpatterns = [
     url(r'^', include('main.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
-    #url('^', include('django.contrib.auth.urls')),
+    #url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    #registration redux:
+    url(r'^accounts/', include('registration.backends.default.urls'))
 ]
 
 if settings.DEBUG:
