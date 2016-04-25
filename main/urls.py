@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^tags/$', views.tags_show, name='tags_show'),
     url(r'^trips_show/$', views.trips_show, name='trips_show'),
     url(r'^trip/new/$', views.trip_new, name='trip_new'),
+    url(r'^trip/(?P<slug>[\w-]+)/delete/$', views.trip_delete, name='trip_delete'),     
     url(r'^trip/(?P<slug>[\w-]+)/$', views.trip_detail, name='trip_detail'), 
     url(r'^trip/(?P<slug>[\w-]+)/edit/$', views.trip_edit, name='trip_edit'),     
     url(r'^post/new/$', views.post_new, name='post_new'),

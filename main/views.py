@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from geopy.geocoders import Nominatim
 
 
 from .models import Trip, Tag, Post
@@ -24,6 +25,14 @@ User = get_user_model()
 #         # If page is out of range (e.g. 9999), deliver last page of results.
 #         objects_to_paginate = paginator.page(paginator.num_pages)
 
+def geocode(request, location_to_geocode):
+    geolocator = Nominatim()
+    location = geolocator.geocode(location_to_geocode)
+    if location == None:
+        messages.error(request,'We couldn\'t find a place on the map. Please check a \'country\' name format (Edit Trip).')
+    else:    
+        print('coordinates:',(location.latitude, location.longitude))
+        coordinates = [location.latitude, location.longitude]
 
 def index(request):
     return render(request, 'main/index.html', {})
@@ -43,8 +52,8 @@ def post_delete(request, pk):
     if post.trip.owner.id != request.user.id:
         raise Http404
     else:
-        messages.success(request, 'Post deleted!') 
         post.delete()
+        messages.success(request, 'Post deleted!') 
     return redirect('main:trip_detail', slug=post.trip.slug)   
 
 
@@ -57,7 +66,9 @@ def post_edit(request, pk):
         if request.method == "POST":
             form = PostForm(request.POST, request.FILES or None, instance=post, user=request.user)
             if form.is_valid():
-                post = form.save()
+                post = form.save(commit=False) 
+                geocode(request, post.place)
+                post.save()
                 messages.success(request, 'Saved!')
                 return redirect('main:post_detail', pk=post.pk)
         else:
@@ -69,7 +80,9 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES or None, user=request.user)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False) 
+            geocode(request, post.place)
+            post.save()
             messages.success(request, 'Post successfully created!')
             return redirect('main:post_detail', pk=post.pk)
         else:
@@ -81,6 +94,16 @@ def post_new(request):
 @login_required
 def posts_show(request):
     return render(request, 'main/posts_show.html', {})
+
+@login_required
+def trip_delete(request, slug): 
+    trip = get_object_or_404(Trip, slug=slug)
+    if trip.owner.id != request.user.id:
+        raise Http404
+    else:
+        trip.delete()
+        messages.success(request, 'Trip deleted!')
+    return redirect('main:trips_show')     
 
 
 @login_required
@@ -114,7 +137,9 @@ def trip_edit(request, slug):
         if request.method == "POST":
             form = TripForm(request.POST, request.FILES, instance=trip)
             if form.is_valid():
-                trip = form.save()
+                trip = form.save(commit=False) 
+                geocode(request, trip.country)
+                trip.save()                
                 messages.success(request, 'Trip Saved!')
                 return redirect('main:trip_detail', slug=trip.slug)
         else:
@@ -128,6 +153,7 @@ def trip_new(request):
         if form.is_valid():
             trip = form.save(commit=False) 
             trip.owner = request.user
+            geocode(request, trip.country)
             trip.save()
             messages.success(request, 'Trip successfully created!')
             return redirect('main:trip_detail', slug=trip.slug)

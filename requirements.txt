@@ -1,0 +1,7 @@
+MyApp
+Django==1.9
+
+django-crispy-forms
+django-registration-redux
+geopy
+Pillow

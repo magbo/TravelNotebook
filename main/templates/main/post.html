@@ -1,7 +1,7 @@
 
     <h3>{{ post.title }}</h3>
     {% if post.text %}
-        <p><label>Note:</label>{{ post.text|linebreaks }}</p> <!-- |truncatechars:120  -->
+        <p><label>Note:</label>{{ post_text|linebreaks }}</p> <!-- |truncatechars:120  -->
     {% endif %}
     {% if post.url %}
         <p><label>Website link:</label><a href="{{ post.url }}"> {{ post.url }}</a></p>

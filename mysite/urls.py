@@ -27,7 +27,8 @@ urlpatterns = [
     #url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     #registration redux:
-    url(r'^accounts/', include('registration.backends.default.urls'))
+    url(r'^accounts/', include('registration.backends.simple.urls'))
+    # url(r'^accounts/', include('registration.backends.default.urls')) -> with activation e-mail
 ]
 
 if settings.DEBUG:

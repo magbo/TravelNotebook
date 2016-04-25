@@ -101,7 +101,7 @@ label {
 }
 
 .top-menu {
-  font-size: 20px;
+  font-size: 15px;
   margin-left: 15px;
 }
 
@@ -162,5 +162,11 @@ label {
 }
 
 .image-container {
-  text-align: center;;
+  text-align: center;
 }
+
+#mapid { 
+  width: 960px;
+  height: 500px;
+}
+  

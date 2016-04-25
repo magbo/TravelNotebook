@@ -8,9 +8,10 @@
 {% include "main/messages.html" %}
 
 <div class="trip" >
-    {% include "main/trip.html" %}
+    {% include "main/trip.html" with trip_text=trip.text %}
     <button type="button"> <a href="{% url 'main:post_new' %}">Add post</a></button>
     <button type="button"> <a href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a></button>
+    <button type="button"> <a href="{% url 'main:trip_delete' slug=trip.slug %}">Delete trip</a></button>
 
 </div>
 <div class="">

@@ -37,6 +37,8 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     url = models.URLField(max_length=150, null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    place = models.CharField(max_length=100, null=True, blank=True)
+    is_favourite = models.BooleanField(default=False)
 
 
     #tags are in post rather than tag is having posts

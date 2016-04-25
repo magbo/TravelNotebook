@@ -4,11 +4,13 @@
 
 {% block content %}
 
+{% include "main/messages.html" %}
+
 <h2>All trips</h2>
 {% if list_of_trips %}
     {% for trip in list_of_trips %}
         <div class="trip">
-            {% include "main/trip.html" %}
+            {% include "main/trip.html" with trip_text=trip.text|truncatechars:240 %}
             <button type="button"> <a href="{% url 'main:trip_detail' trip.slug %}">Trip details ...</a></button>
         </div>
     {% endfor %}
@@ -31,5 +33,5 @@
                 {% endif %}
             </span>   
         </div> -->
-    </div>    
+   <!--  </div>     -->
 {% endblock %}     

@@ -1,3 +1,13 @@
 {% extends "main/base.html" %}
 
 {% block title %}Travel app{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+	<div id="mapid"></div>
+{% endif %}  
+
+{% endblock %}
+
+

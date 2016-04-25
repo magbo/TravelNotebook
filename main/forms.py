@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
 
 	class Meta:
 		model = Post
-		fields = ('trip', 'title', 'text', 'url', 'image', 'tags')
+		fields = ('trip', 'title', 'text', 'url', 'image', 'place', 'tags')
 		widgets = {
 			# 'title':forms.Textarea(attrs={'cols': 80, 'rows': 2}),
 			# 'text': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
