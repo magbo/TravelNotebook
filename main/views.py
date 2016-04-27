@@ -10,8 +10,34 @@ from geopy.geocoders import Nominatim
 from .models import Trip, Tag, Post
 from .forms import TripForm, PostForm
 
+import json
+
 User = get_user_model()
 
+
+def to_gjson(geojsonFeaturePost):
+    print(geojsonFeaturePost) 
+    out_file = open("test.geojson","a")
+    json.dump(geojsonFeaturePost, out_file, indent=4)
+    out_file.close()
+
+#test example json
+# my_dict = {
+#     'Name': 'Magda',
+#     'Location': 'Kilpisjrvi',
+#     'Longitude': str(20.76),
+#     'Latitude':  str(69.07),
+#     }
+# print(my_dict) 
+# print(my_dict['Location'])
+
+# def to_json(my_dict):
+#     out_file = open("test.json","w")
+#     json.dump(my_dict,out_file, indent=4)
+#     out_file.close()
+# to_json(my_dict)  
+
+# pagination:
 # def paginate(request, objects_to_paginate):
 #     paginator = Paginator(objects_to_paginate, 2) # Show 25 contacts per page
 
@@ -33,6 +59,7 @@ def geocode(request, location_to_geocode):
     else:    
         print('coordinates:',(location.latitude, location.longitude))
         coordinates = [location.latitude, location.longitude]
+        return coordinates
 
 def index(request):
     return render(request, 'main/index.html', {})
@@ -81,8 +108,24 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES or None, user=request.user)
         if form.is_valid():
             post = form.save(commit=False) 
-            geocode(request, post.place)
+            post_coordinates = geocode(request, post.place)
+            print(post_coordinates)
             post.save()
+            geojsonFeaturePost = {
+                "type": "Feature",
+                "properties": {
+                    "name": str(post.place),
+                    "id": post.id,
+                    "popupContent": str(post.title)
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": post_coordinates
+                }
+            };  
+            print(geojsonFeaturePost)     
+            to_gjson(geojsonFeaturePost)
+            print("post_id", post.id)
             messages.success(request, 'Post successfully created!')
             return redirect('main:post_detail', pk=post.pk)
         else:
@@ -205,5 +248,6 @@ def countries_show(request):
         'posts': posts,
     } 
     return render(request, 'main/countries_show.html', context) 
+
 
 

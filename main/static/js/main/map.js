@@ -11,4 +11,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoibWFnYm8iLCJhIjoiY2luZW5hbzB6MDA2b3ZrbHhuenJpejlkdyJ9.LEce2AH5VgB16ybip-bsqQ'}
     ).addTo(mymap);
 
-var marker = L.marker([52.0977181, 19.0258159]).addTo(mymap);
+// var marker = L.marker([52.0977181, 19.0258159]).addTo(mymap);
+var geojsonFeature = 
+
+var myLayer = L.geoJson().addTo(mymap);
+myLayer.addData(geojsonFeature);
