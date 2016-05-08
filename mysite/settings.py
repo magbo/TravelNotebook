@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     #third party apps
     'crispy_forms',
     'registration',
+    'leaflet',
+    'djgeojson',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -139,6 +141,12 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media_cdn')
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 #DJANGO REGISTRATION REDUX SETTINGS
-#ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_ACTIVATION_DAYS = 7
 #REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
+
+# Geojson
+SERIALIZATION_MODULES = {
+    "geojson": "django.contrib.gis.serializers.geojson", 
+ }
+

@@ -5,3 +5,4 @@ django-crispy-forms
 django-registration-redux
 geopy
 Pillow
+django-leaflet-0.18.1

@@ -1,24 +1,24 @@
-<div class='container'> 
-    <div class="row">  
-        <div class="col-md-5">
-        </div>
-        <div class="col-md-7">
+
+    <div class='navbar navbar-static-top'> 
+        <div class="container">        
+            <a href="{% url 'main:index' %}" class="navbar-brand">My travel notebook</a>
+             <ul class="navbar-nav navbar-right list-unstyled">    
             {% if user.is_authenticated %}  
-                <span><a href="{% url 'main:trips_show' %}" class="top-menu">Show trips</a></span>
-                <span><a href="{% url 'main:photos_show' %}"class="top-menu">Photos</a></span> 
-                <span><a href="{% url 'main:trip_new' %}" class="top-menu">Add new trip</a></span>
-                <span><a href="{% url 'main:post_new' %}"class="top-menu">Add new post</a></span>
-                <span><a href="{% url 'main:tags_show' %}"class="top-menu">Tags</a></span> 
+                <li><a href="{% url 'main:trips_show' %}" class="top-menu">Show trips</a></li>
+                <li><a href="{% url 'main:photos_show' %}"class="top-menu">Photos</a></li>
+                <li><a href="{% url 'main:trip_new' %}" class="top-menu">Add new trip</a></li>
+                <li><a href="{% url 'main:post_new' %}"class="top-menu">Add new post</a></li>
+                <li><a href="{% url 'main:tags_show' %}"class="top-menu">Tags</a></li>
+                <li><a href="{% url 'main:map' %}"class="top-menu">Map</a></li>
             {% endif %}    
             {% if user.is_authenticated %}  
-                 <span class="top-menu">Hello {{ user.username }}! (<a href="{% url 'django.contrib.auth.views.logout' %}">LOG OUT</a>)</span> 
+                 <li class="top-menu"><a href="{% url 'django.contrib.auth.views.logout' %}" class="top-menu">Hello {{ user.username }}! (LOG OUT)</a></li> 
             {% else %}
-                 <span><a href="{% url 'auth_login' %}" class="top-menu">LOGIN</a></span>
-                 <span><a href="{% url 'registration_register' %}" class="top-menu">SIGNUP</a></span>      
+                 <li><a href="{% url 'auth_login' %}" class="top-menu signup-btn">LOGIN</a></li>
+                 <li><a href="{% url 'registration_register' %}" class="top-menu signup-btn">SIGNUP</a></li>      
             {% endif %}
+           </ul>  
         </div>           
     </div>  
-    <div>   
-        <h1><a href="{% url 'main:index' %}">My travel notebook</a></h1> 
-    </div>
-</div>
+
+

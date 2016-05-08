@@ -1,17 +1,25 @@
 
-<h2>{{ trip.title }}</h2>
+<div class="trip-title-container">
+	<h3 class="trip-title">{{ trip_title }}</h3>
+</div>
+<div class="trip-country-container">	
+	<p class="trip-country"><label>Country:</label> {{ trip.country }}</p>
+</div>	
 {% if trip.image %}
-	<img src="{{ trip.image.url }}" class="img-responsive"/>
-{% endif %}	
-<p><label>Country:</label> {{ trip.country }}</p>
-<!-- <p>{{ trip.text|linebreaks }}</p>
- -->
- <p>{{ trip_text|linebreaks }}</p>
-
- 	<ul class="dates">
-{% if trip.date_start and trip.date_end %}
-    <li><label>Start date:</label> {{ trip.date_start }}</li>
-    <li><label>End date:</label> {{ trip.date_end }}</li>
-{% else %} <li><label>Dates:</label> TBA</li>
+	<div class="trip-img-container">
+		<img src="{{ trip.image.url }}" class="img-responsive trip-img"/>
+	</div>	
 {% endif %}
-</ul>
+<div class="trip-dates-container">
+	<ul class="trip-dates">
+		{% if trip.date_start and trip.date_end %}
+		    <li><label>Start date:</label> {{ trip.date_start }}</li>
+		    <li><label>End date:</label> {{ trip.date_end }}</li>
+		{% else %} 
+			<li><label>Dates:</label> TBA</li>
+		{% endif %}
+	</ul>	
+</div>	
+<div class="btn-trip-detail-container">
+    <button type="button" class="btn btn-trip-detail"> <a href="{% url 'main:trip_detail' trip.slug %}">Trip details ...</a></button>
+<div>

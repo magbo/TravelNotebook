@@ -1,50 +1,51 @@
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   border: 0 none;
   position: relative;
 }
 html {
   height: 100%;
   margin: 0;
+/*  display: flex;*/
 }
 
 body {
-  padding : 15px;
-  background: url(images/main-boat.jpg) no-repeat center fixed;
+  width:100%;
+  background: url(images/sunrise.jpg) no-repeat center fixed;
   background-size: cover;
-  font-family: 'Lato', Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  line-height: 1.5;
   color: #19334d;
+  margin: 0;
+  word-wrap: break-word;
  }
 
 
 h1 {
-  font-size: 70px;
-  margin-bottom: 40px;
-  margin-top:100px;
+  font-size: 50px;
+  font-weight: 100;
+  margin-bottom: 70px;
+  margin-top: 100px;
   text-align: center;
 }
 
 h2 {
+  margin-top: 100px;
   margin-bottom: 15px;
   margin-left: 15px;
-  padding: 5px 5px 5px 5px;
+  padding: 5px;
   font-size: 30px;
 
 }
 
 h3 {
-  padding: 10px 3px 40px 10px;
   font-size: 25px;
 }
 
-h4 {
-  padding: 5px 3px 5px 10px;
-  font-size: 15px;
-}
 
 p {
-  margin: 15px;
   font-size: 15px;
 }
 
@@ -54,7 +55,7 @@ ul {
 
 
 a {
-  color: #19334d;
+  color: rgba(255,165,0,0.9);
 }
 
 a:hover {
@@ -70,29 +71,68 @@ ul li {
   display: inline;
   padding-right: 15px;
   font-size: 15px;
-  margin-left: 15px;
 }
 
 button {
   text-decoration: none;
   background-color: rgba(25,51,77, 0.9);
-  border-radius: 2px;
+  border-radius: 1px;
   padding: 6px;
   color: #ffffff;
   font-size: 15px
+  width: 100px; 
 }
 
 button a {
   color: #ffffff;
   font-size: 15px;
+  text-decoration: none;
 }
+
 
 label {
   font-weight: 700;
 }
 
+footer {
+  position: relative;
+  margin-top: -150px; 
+  height: 50px;
+  clear:both;
+  padding-top:20px;
+  text-align: center;
+  color: rgba(25,51,77, 1);
+}
 
+figure img {
+  border: 5px solid #fff;
+  border-radius: 2px;
+  width: 400px;
+  height: auto;
+}
 
+figcaption {
+  background-color: rgba(246,243,243,1);  
+  margin-top: 5px;
+  padding-left: 5px;
+  border-radius: 2px;
+}
+
+figcaption p {
+  font-size: 12px;
+}
+
+form {
+  background-color: rgba(246,243,243,0.8);
+  padding: 15px;
+  margin-bottom: 30px;
+}
+.site-description {
+  border: 1px solid #000;
+  margin: 2px;
+  text-align: center;
+  padding: 30px;
+}
 
 .container-fluid {
   padding: 0  3px    70px     0;
@@ -103,28 +143,22 @@ label {
 .top-menu {
   font-size: 15px;
   margin-left: 15px;
+  float: right;
+  color: #19334d;
+  text-decoration: none;
 }
 
-.trip{
-  position: relative;
-  border-radius: 2px;
-  background-color:rgba(246,243,243,0.8);
-  margin-bottom: 5px;
-  padding: 10px;
+.navbar-brand {
+  color: #19334d;
+  text-decoration: none;
 }
 
-.post {
-  border-radius: 2px;
-  background-color:rgba(246,243,243,0.8);
-  margin: 5px;
-  padding: 10px;
-}
-
+/*tags*/
 .tags-container {
-  margin: 30px auto 30px auto;
-  border-radius: 2px;
-  background-color:rgba(246,243,243,0.8); 
-  padding: 20px; 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;  
+  margin-top: 50px;
 }
 
 .tag-in-list {
@@ -138,22 +172,10 @@ label {
   color: #ffffff;
 }
 .tag-in-list.small {
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   font-size: small;
 }
 
-
-.post-tags {
-  margin: 15px;
-  font-size: 15px;
-}
-
-.image-container {
-  border-radius: 2px;
-  background-color:rgba(246,243,243,0.8);
-  margin: 5px;
-  padding: 10px;
-}
 
 .img-responsive {
   display: block;
@@ -161,12 +183,55 @@ label {
   margin-right: auto;
 }
 
-.image-container {
-  text-align: center;
+/*maps*/
+#map-trips { 
+  width: 750px;
+  height: 500px;
+  margin-bottom:60px;
 }
 
-#mapid { 
-  width: 960px;
-  height: 500px;
+
+.popup-img {
+  position: relative;
+  width:  100px;
+  height: 60px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+
+/*photos_show*/
+.photo {
+  max-width:100%;
+  max-height: 400px;
+  overflow: hidden;
 }
-  
+
+.photo-gallery {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  text-align: left;
+}
+
+.gallery-item {
+  margin: 20px;
+  float: left;
+}
+
+.btn-tag {
+  margin:30px;
+}
+
+.registration-info {
+  margin-top:200px;
+  margin-left: 100px;
+}
+
+.no-items-info {
+  padding: 40px;
+}
+
+.no-items-info p {
+  font-size:20px;
+}

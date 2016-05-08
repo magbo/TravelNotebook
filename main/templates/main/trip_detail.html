@@ -1,57 +1,47 @@
-
 {% extends "main/base.html" %}
+{% load staticfiles %}
 
-{% block title %}All trips{% endblock %}
+{% block title %}Trip{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super}}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/trip_detail.css' %}"/>
+{% endblock %}
 
 {% block content %}
 
 {% include "main/messages.html" %}
 
-<div class="trip" >
-    {% include "main/trip.html" with trip_text=trip.text %}
-    <button type="button"> <a href="{% url 'main:post_new' %}">Add post</a></button>
-    <button type="button"> <a href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a></button>
-    <button type="button"> <a href="{% url 'main:trip_delete' slug=trip.slug %}">Delete trip</a></button>
-
-</div>
-<div class="">
-{% if trip_posts %}
-    <h3> List of posts related to this trip:</h3>
-    <div class="row">
-        <div class="">
-            {% for post in trip_posts %}
-                <div class="post">
-                    {% include "main/post.html" with post=post post_tags=post.tags.all only %}
-                
-                    <div>
-                        <button type="button"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>
-                    </div>
-
-                </div>    
-            {% endfor %}
-        </div>
-    </div>    
-    <div class="col-md-6 footer">
-        <div class="pagination">
-            <span class="step-links">
-                {% if trip_posts.has_previous %}
-                    <a href="?page={{ trip_posts.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ trip_posts.number }} of {{ trip_posts.paginator.num_pages }}.
-                </span>
-
-                {% if trip_posts.has_next %}
-                    <a href="?page={{ trip_posts.next_page_number }}">next</a>
-                {% endif %}
-            </span>   
-        </div>
-    </div>    
-{% else %}
-    <h4> There are no posts related to this trip.</h4>
+<div class="trip-detail-content">
+    <section class="trip" >
+        {% include "main/trip.html" with trip_title=trip.title%}
+        <div class="trip-buttons-set">
+            <button type="button" class="btn btn-add"> <a href="{% url 'main:post_new' %}">Add post</a></button>
+            <button type="button" class="btn btn-edit"> <a href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a></button>
+            <button type="button" class="btn btn-del"> <a href="{% url 'main:trip_delete' slug=trip.slug %}">Delete trip</a></button>
+        </div>   
+        <div class="trip-text-container">
+            <p class="trip-text">{{ trip.text|linebreaks }}</p>
+        </div>     
+    </section>
+</div>  
+    {% if trip_posts %}
+        <h3 class="post-list-header"> List of posts related to this trip:</h3>
+                {% for post in trip_posts %}
+                    <section class="post">
+                        {% include "main/post.html" with post=post post_tags=post.tags.all post_text=post.text|truncatechars:120 only %}
+                    </section>    
+                {% endfor %}
+    {% else %}
+ <div class="no-items-info">   
+    <p> There are no posts related to this trip.</p>
+ <div>   
 {% endif %}
 </div>
+
+{% endblock %}
+
+{% block script %}
 
 {% endblock %}
    

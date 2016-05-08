@@ -1,23 +1,26 @@
 {% extends "main/base.html" %}
+{% load staticfiles %}
 
 {% block title %}All trips{% endblock %}
-
+{% block stylesheets %}
+    {{ block.super}}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/trips_show.css' %}"/>
+{% endblock %}
 {% block content %}
+<div>   
+  <h1>All trips</h1> 
+</div>
 
 {% include "main/messages.html" %}
-
-<h2>All trips</h2>
+<div class="trips-show-content">
 {% if list_of_trips %}
     {% for trip in list_of_trips %}
-        <div class="trip">
-            {% include "main/trip.html" with trip_text=trip.text|truncatechars:240 %}
-            <button type="button"> <a href="{% url 'main:trip_detail' trip.slug %}">Trip details ...</a></button>
-        </div>
+        <section class="trip-container">
+            {% include "main/trip.html" with trip_text=trip.text|truncatechars:30 trip_title=trip.title|truncatechars:30 %}
+        </section>
     {% endfor %}
-{% else %}
-    <p>No trips are available.</p>
-{% endif %}
-<!-- 		<div class="footer">
+</div>
+    <footer>
         <div class="pagination">
             <span class="step-links">
                 {% if list_of_trips.has_previous %}
@@ -32,6 +35,12 @@
                     <a href="?page={{ list_of_trips.next_page_number }}">next</a>
                 {% endif %}
             </span>   
-        </div> -->
-   <!--  </div>     -->
+        </div>
+    </footer>    
+{% else %}
+<div class="no-items-info">
+    <p>No trips available.</p>
+    <button type="button" class="btn btn-tag"> <a href="{% url 'main:trip_new' %}">Add new trip</a></button>
+</div>    
+{% endif %}
 {% endblock %}     

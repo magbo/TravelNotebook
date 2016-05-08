@@ -4,6 +4,7 @@ from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.utils.text import slugify
 
+
 def upload_location(instance, filename):
     return "%s/%s" %(instance.id, filename) #change to owner for trips then id form posts
 
@@ -17,13 +18,15 @@ class Trip(models.Model):
     country = models.CharField(max_length=30)
     created_date = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User)
+    coordinates = models.CharField(max_length=100, null=True, blank=True)
+    
 
     def __str__(self):
         return self.title
 
-
 class Tag(models.Model):
     value = models.CharField(max_length=20)
+    owner = models.ForeignKey(User, null=True, blank=True)
 
     def __str__(self):
         return self.value
@@ -35,16 +38,16 @@ class Post(models.Model):
     image = models.ImageField(upload_to=upload_location, null=True, blank=True)    
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    url = models.URLField(max_length=150, null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     place = models.CharField(max_length=100, null=True, blank=True)
-    is_favourite = models.BooleanField(default=False)
-
+    coordinates = models.CharField(max_length=100, null=True, blank=True)    
 
     #tags are in post rather than tag is having posts
 
     def __str__(self):
         return self.title
+
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)

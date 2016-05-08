@@ -1,0 +1,70 @@
+{% extends "main/base.html" %}
+
+{% block title %}Map{% endblock %}
+
+
+{% block content %}
+<div>   
+  <h1>Map of trips</h1> 
+</div>
+<div class='col-md-8 col-md-offset-2'id="map-trips"></div>
+
+
+
+
+
+{% block script %}
+<script type="text/javascript">
+	var markers = {{ markers|safe }}
+
+
+
+	var mymap = L.map('map-trips', {
+		minZoom: 2, 
+		maxZoom:13, 
+	}).setView([34.9249653, 38.9597594], 2)
+
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id2}/{z}/{x}/{y}.png?access_token={accessToken}', { attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			maxZoom: 18,
+				// satelite map:
+			id: 'magbo.pp277k86', 
+			// basic map:
+			id2: 'magbo.pp2849kk',
+			accessToken: 'pk.eyJ1IjoibWFnYm8iLCJhIjoiY2luZW5hbzB6MDA2b3ZrbHhuenJpejlkdyJ9.LEce2AH5VgB16ybip-bsqQ'}).addTo(mymap);
+	
+	L.geoJson(markers).addTo(mymap);
+	
+
+	function onEachFeature(feature, layer) {
+		// does this feature have a property named popupContent?
+	if (feature.properties && feature.properties.popupContent) {
+    	layer.bindPopup(feature.properties.popupContent);
+		}
+	}	
+
+
+	for (i = 0; i < markers.length; i ++) {
+		var marker = markers[i];
+
+		L.geoJson(marker).addTo(mymap)
+
+		L.geoJson(marker, {
+				onEachFeature: onEachFeature
+			}).addTo(mymap)	
+	};	
+
+
+</script> 
+{% endblock %}  
+
+
+
+
+{% endblock %}
+
+
+
+
+
+

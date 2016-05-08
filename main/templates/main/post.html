@@ -1,23 +1,37 @@
-
-    <h3>{{ post.title }}</h3>
-    {% if post.text %}
-        <p><label>Note:</label>{{ post_text|linebreaks }}</p> <!-- |truncatechars:120  -->
-    {% endif %}
-    {% if post.url %}
-        <p><label>Website link:</label><a href="{{ post.url }}"> {{ post.url }}</a></p>
-    {% endif %}
-    <p><label>Date:</label> {{ post.created_date }}</p>
-    <p><label>Trip:</label><a href="{% url 'main:trip_detail' slug=post.trip.slug %}"> {{ post.trip.title }} </a></p>
-    {% if post.image %}
-        <image src="{{post.image.url}}" class="img-responsive"/>
-    {% endif %}
-    {% if post_tags %}
-    <div class="post-tags">
-        <ul>
-            <label>Tags:</label>
-            {% for tag in post_tags %}
-                <li class="tag-in-list small"><a href="{% url 'main:tag_detail' tag_name=tag.value %}">{{ tag.value }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>    
-    {% endif %}
+    <div class="post-main-info">
+        <h3>{{ post.title }}</h3>
+        <div class="">
+            <p><label>Trip:</label><a href="{% url 'main:trip_detail' slug=post.trip.slug %}"> {{ post.trip.title }} </a></p>
+            <p><label>Added:</label> {{ post.created_date }}</p>
+        </div>
+        {% if post_tags %}
+        <div class="post-tags">
+            <ul>
+                <label>Tags:</label>
+                {% for tag in post_tags %}
+                    <li class="tag-in-list small"><a href="{% url 'main:tag_detail' tag_name=tag.value %}">{{ tag.value }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>    
+        {% endif %}    
+    </div>
+    <div class="post-content">
+        <div class="post-text-content">
+            {% if post.url %}
+                <p><label>Website link:</label><a href="{{ post.url }}"> {{ post.url }}</a></p>
+            {% endif %}    
+            {% if post.text %}
+                <p>{{ post_text|linebreaks }}</p> <!-- |truncatechars:120  -->
+            {% endif %}
+        </div>    
+        <div class="post-buttons-set">
+            <button type="button" class="btn"> <a href="{% url 'main:post_edit' pk=post.pk %}">Edit post</a></button>
+            <button type="button" class="btn"> <a href="{% url 'main:post_delete' pk=post.pk %}">Delete post</a></button>
+            <button type="button" class="btn btn-post-detail"> <a href="{% url 'main:post_detail' post.id %}">Details ...</a></button>  
+        </div> 
+    </div>
+            {% if post.image %}
+        <div class="post-img-container">
+            <img src="{{post.image.url}}" class="img-responsive"/>
+        </div>    
+        {% endif %}

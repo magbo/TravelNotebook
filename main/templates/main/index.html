@@ -1,12 +1,18 @@
 {% extends "main/base.html" %}
-
+{% load leaflet_tags %}
 {% block title %}Travel app{% endblock %}
 
-{% block content %}
 
-{% if user.is_authenticated %}
-	<div id="mapid"></div>
-{% endif %}  
+
+
+{% block content %}
+<div>   
+  <h1 class="main-header">My travel notebook</h1> 
+</div>
+
+<div>
+	<p class="site-description">nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/</p>
+</div>
 
 {% endblock %}
 

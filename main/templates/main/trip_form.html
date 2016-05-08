@@ -1,0 +1,7 @@
+{% load crispy_forms_tags %} 
+ 	<form method="POST" class="form" enctype="multipart/form-data">{% csrf_token %}
+ 		<!-- {{ form.as_p }} -->
+ 		{{ form|crispy }}
+ 		<button class="btn btn-block btn-primary">Save</button> 
+ 	</form>	
+

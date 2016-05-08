@@ -3,28 +3,31 @@
 {% block title %}Photos{% endblock %}
 
 {% block content %}
-
-<h2>All photos</h2>
-{% if trips %}
-	{% for trip in trips %}
-	<div>		
-		{% for post in posts %}
-			{% if post.trip == trip %}		
-				{% if post.image %}
-				<div class="image-container">
-				    <p>{{ post.title }}</p>
-					<image src="{{ post.image.url }}" class="img-responsive"/>
-					<p>Trip: <a href="{% url 'main:trip_detail' slug=trip.slug %}">{{ trip.title }}</a></p>
-				</div>
-				{% else %}
-					<p>No photos to show.</p>
-				{% endif %}	
-			{%endif%}	
-		{%endfor%}	
-	</div>	
-	{% endfor %}
-{% else %}
-<p>No photos to show.</p>
-{% endif %}	
-
+<div>   
+  <h1>All photos</h1> 
+</div>
+<div>
+	<div class="photo-gallery">
+		{% if trips %}
+			{% for trip in trips %}		
+				{% for post in posts %}
+					{% if post.trip == trip %}		
+						{% if post.image %}
+						<div class="gallery-item">
+							<figure>
+								<div class="photo">
+									<img src="{{ post.image.url }}" class="img-responsive"/>
+								</div>	
+								<figcaption><p>Post: <a href="{% url 'main:post_detail' post.id %}">{{ post.title|truncatechars:20 }}</a>, Trip: <a href="{% url 'main:trip_detail' slug=trip.slug %}">{{ trip.title|truncatechars:20 }}</a></p></figcaption>
+							</figure>		
+						</div>				
+						{% endif %}	
+					{% endif %}	
+				{% endfor %}	
+			{% endfor %}
+		{% else %}
+		<p>No photos to show.</p>
+		{% endif %}	
+	</div>
+</div>	
 {% endblock %}

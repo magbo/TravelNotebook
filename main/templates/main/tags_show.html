@@ -4,12 +4,19 @@
 
 
 {% block content %}
+<div>   
+  <h1>Tags</h1> 
+</div>
+<div>
+	<button type="button" class="btn btn-tag"> <a href="{% url 'main:tag_new' %}">New tag</a></button>
+</div>
 <div class='tags-container'>
-	<h3> Tags</h3>
-	<ul class="tags">
-		{% for tag in tags %}
-		    <li class="tag-in-list"><a href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
-		{% endfor %}
-	</ul>
+	<div>
+		<ul class="tags">
+			{% for tag in tags %}
+			    <li class="tag-in-list"><a href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>	
 </div>	
 {% endblock %}
