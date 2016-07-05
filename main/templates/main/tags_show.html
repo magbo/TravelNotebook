@@ -14,7 +14,7 @@
 	<div>
 		<ul class="tags">
 			{% for tag in tags %}
-			    <li class="tag-in-list"><a href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
+			    <li class="tag-in-list"><a class="big-tag" href="{% url 'main:tag_detail' tag.value %}">{{ tag.value }}</a></li>
 			{% endfor %}
 		</ul>
 	</div>	

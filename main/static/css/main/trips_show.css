@@ -57,5 +57,11 @@
   bottom: 20px;
   left: 120px;
 }
-
-
+.btn-trip-detail {
+  width: 120px;
+  margin:auto;
+}
+.btn-trip-detail a:hover {
+  text-decoration: none;
+  color: rgba(246,243,243,1);
+}

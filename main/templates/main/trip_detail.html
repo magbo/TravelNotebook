@@ -16,9 +16,9 @@
     <section class="trip" >
         {% include "main/trip.html" with trip_title=trip.title%}
         <div class="trip-buttons-set">
-            <button type="button" class="btn btn-add"> <a href="{% url 'main:post_new' %}">Add post</a></button>
-            <button type="button" class="btn btn-edit"> <a href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a></button>
-            <button type="button" class="btn btn-del"> <a href="{% url 'main:trip_delete' slug=trip.slug %}">Delete trip</a></button>
+           <a class="btn" href="{% url 'main:post_new' %}">Add post</a>
+           <a class="btn" href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a>
+           <a class="btn" href="{% url 'main:trip_delete' slug=trip.slug %}">Delete trip</a>
         </div>   
         <div class="trip-text-container">
             <p class="trip-text">{{ trip.text|linebreaks }}</p>

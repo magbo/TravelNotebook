@@ -18,7 +18,8 @@ class Trip(models.Model):
     country = models.CharField(max_length=30)
     created_date = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User)
-    coordinates = models.CharField(max_length=100, null=True, blank=True)
+    lon= models.FloatField(null=True, blank=True)
+    lat= models.FloatField(null=True, blank=True)
     
 
     def __str__(self):
@@ -41,8 +42,8 @@ class Post(models.Model):
     url = models.URLField(null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     place = models.CharField(max_length=100, null=True, blank=True)
-    coordinates = models.CharField(max_length=100, null=True, blank=True)    
-
+    lon= models.FloatField(null=True, blank=True)
+    lat= models.FloatField(null=True, blank=True)
     #tags are in post rather than tag is having posts
 
     def __str__(self):

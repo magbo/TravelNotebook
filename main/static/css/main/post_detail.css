@@ -36,21 +36,37 @@
   padding: 15px;
 }
 
+
+
+.btn-trip-detail {
+  display:none;
+}
+
 .post-buttons-set {
-  width: 50%; 
+  width: 50%;
+  margin-top: 60px;
   text-align: center; 
   margin-left: auto;
-  margin-right: auto;  
-  margin-top: 60px;
+  margin-right: auto;
 }
 
-.post-buttons-set button {
+.post-btn {
   padding: 10px;
-  margin: 20px;
-  width: 150px;
-  text-align: center;
+  margin: 10px;
+  background-color: rgba(25,51,77, 0.9);
+  color:rgba(246,243,243,1);
+  border-radius: 2px;
 }
 
+.post-btn:hover {
+  text-decoration: none;
+  color: rgba(246,243,243,1);
+}
 .btn-post-detail {
   display: none;
+}
+
+.tag-in-list.small {
+  padding: 5px;
+  font-size: small;
 }

@@ -13,14 +13,26 @@ from .forms import PostForm, TagForm, TripForm
 User = get_user_model()
 
 
-def geocode(request, location_to_geocode):
+def geocode(location_to_geocode):
     geolocator = Nominatim()
     location = geolocator.geocode(location_to_geocode)
     if location == None:
-        messages.error(request,'We couldn\'t find a place on the map. Please check a \'country\' name format (Edit Trip).')
+        pass
     else:    
         coordinates = [location.longitude, location.latitude]
+    #     lon = location.longitude
+    #     lat = location.latitude
+    #     coor_list = (str(lon), str(lat))
+    #     coordinates = (",").join(coor_list)
+
+        print("coordinates: ", coordinates)
         return coordinates
+
+def image_url(self):
+    if self.image and hasattr(self.image, 'url'):
+        return self.image.url
+    else:
+        return '/static/css/main/images/alt_luggage.jpg'        
            
 
 def index(request):
@@ -30,13 +42,14 @@ def index(request):
 @login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    post_coordinates = [post.lon, post.lat]  
     if post.trip.owner.id != request.user.id:
         raise Http404
     else: 
         post_tags = post.tags.all()
-        post_coordinates = geocode(request, post.place)
+
         if post.image:
-            popup_content = '<img src="{}" alt="Photo" class="popup-img"/><div class="popup-text"><p>Place: {}</p><p>Trip: <a href="" id="popup-link">{}</a></p></div>'.format(post.image.url,  post.place, post.trip.title) 
+            popup_content = '<img src="{}" alt="Photo" class="popup-img"/><div class="popup-text"><p>Place: {}</p><p>Trip: <a href="" id="popup-link">{}</a></p></div>'.format(post.image.url, post.place, post.trip.title) 
         else:
             popup_content = '<div class="popup-text"><p>Place: {}</p><p>Trip: <a href="" id="popup-link">{}</a></p></div>'.format(post.place, post.trip.title)             
         marker = {
@@ -52,9 +65,9 @@ def post_detail(request, pk):
                     "type": "Point",
                     "coordinates": post_coordinates
                 }
-            };  
+            } 
     context = {
-        'post_coordinates': post_coordinates,
+        # 'post_coordinates': post_coordinates,
         'post': post, 
         'post_tags': post_tags, 
         'marker': marker
@@ -83,9 +96,16 @@ def post_edit(request, pk):
             form = PostForm(request.POST, request.FILES or None, instance=post, user=request.user)
             if form.is_valid():
                 post = form.save(commit=False) 
-                post_coordinates = geocode(request, post.place)
-                post.coordinates = post_coordinates
+                coordinates = geocode(post.place)
+                if coordinates == None:
+                    post.lon = None
+                    post.lat = None
+                    messages.error(request,'We couldn\'t find a place on the map. Please check a \'country\' name format (Edit option).')
+                else:
+                    post.lon = coordinates[0]
+                    post.lat = coordinates[1]
                 post.save()
+                form.save_m2m()
                 messages.success(request, 'Saved!')
                 return redirect('main:post_detail', pk=post.pk)
         else:
@@ -99,9 +119,14 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES or None, user=request.user)
         if form.is_valid():
             post = form.save(commit=False) 
-            post_coordinates = geocode(request, post.place)
-            post.coordinates = post_coordinates
+            coordinates = geocode(post.place)
+            if coordinates == None:
+                messages.error(request,'We couldn\'t find a place on the map. Please check a \'country\' name format (Edit option).')
+            else:
+                post.lon = coordinates[0]
+                post.lat = coordinates[1]
             post.save()
+            form.save_m2m()
             messages.success(request, 'Post successfully created!')
             return redirect('main:post_detail', pk=post.pk)
         else:
@@ -197,8 +222,15 @@ def trip_edit(request, slug):
             form = TripForm(request.POST, request.FILES, instance=trip)
             if form.is_valid():
                 trip = form.save(commit=False) 
-                trip_coordinates = geocode(request, trip.country)
-                trip.coordinates = trip_coordinates
+                trip.image = image_url(trip)
+                coordinates = geocode(trip.country)
+                if coordinates == None:
+                    trip.lon=None
+                    trip.lat=None
+                    messages.error(request,'We couldn\'t find a place on the map. Please check a \'country\' name format (Edit option).')
+                else:
+                    trip.lon = coordinates[0]
+                    trip.lat = coordinates[1]
                 trip.save()                
                 messages.success(request, 'Trip Saved!')
                 return redirect('main:trip_detail', slug=trip.slug)
@@ -214,9 +246,15 @@ def trip_new(request):
         if form.is_valid():
             trip = form.save(commit=False) 
             trip.owner = request.user
-            coordinates = geocode(request, trip.country)
-            trip.coordinates = coordinates
+            trip.image = image_url(trip)
+            coordinates = geocode(trip.country)
+            if coordinates == None:
+                messages.error(request,'We couldn\'t find a place on the map. Please check a \'country\' name format (Edit option).')
+            else:
+                trip.lon = coordinates[0]
+                trip.lat = coordinates[1]
             trip.save()
+            print("lon,lat: ", trip.lon, trip.lat)
             messages.success(request, 'Trip successfully created!')
             return redirect('main:trip_detail', slug=trip.slug)
         else:
@@ -288,10 +326,10 @@ def map(request):
         else:
             popup_content = '<div class="popup-text"><p>Country: {}</p><p>Trip: {}</p></div>'.format(trip.country, trip.title)             
         
-        trip_coordinates = geocode(request, trip.country)
 
-        if not trip_coordinates:
+        if not trip.lon:
             continue
+        coordinates = [trip.lon, trip.lat]   
         marker = {
                 "type": "Feature",
                 "properties": {
@@ -302,10 +340,11 @@ def map(request):
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": trip_coordinates
+                    "coordinates": coordinates
                 }
             }    
         markers.append(marker)      
+    
     context = {
         'markers': markers
     } 

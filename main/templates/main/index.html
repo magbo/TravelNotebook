@@ -9,10 +9,49 @@
 <div>   
   <h1 class="main-header">My travel notebook</h1> 
 </div>
+{% if user.is_authenticated %}
+    <div class="site-intro-box">
+		<i class="fa fa-plane" aria-hidden="true"></i>
+		<h2>Create New Trip</h2>
+		<p>Insert a few details about the travel you're planning to organize.</p></br></br>
+		 <a class="btn" href="{% url 'main:trip_new' %}">GO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+	</div>
+	<div class="site-intro-box">
+		<i class="fa fa-pencil" aria-hidden="true"></i>    	
+    	<h2>Create New Post</h2>
+		<p>Start adding personal notes, useful links and favourite photos to a trip from here.</p></br></br>
+		<a class="btn" href="{% url 'main:post_new' %}">GO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>	
+	</div>
+	<div class="site-intro-box">
+		<i class="fa fa-list" aria-hidden="true"></i>	
+		<h2>All Your Trips</h2>
+		<p>Look for a trip you'd like to edit or browse through.</p></br></br>
+		<a class="btn" href="{% url 'main:trips_show' %}">GO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>	
+	</div>
+	<div class="site-intro-box">
+		<i class="fa fa-map" aria-hidden="true"></i>
+		<h2>Map</h2>
+		<p >If you insert a location while creating a post your notes and photos will be pinned to your personal map.</p></br>
+		<a class="btn" href="{% url 'main:map' %}">GO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>	
+	</div>
+	<div class="site-intro-box">
+		<i class="fa fa-camera" aria-hidden="true"></i>
+		<h2>Photos</h2>
+		<p >Visit a gallery of your favourite travel photos.</p></br></br>
+		<a class="btn" href="{% url 'main:photos_show' %}">GO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+	</div>	
+	<div class="site-intro-box">
+		<i class="fa fa-tags" aria-hidden="true"></i>
+		<h2>Tags</h2>
+		<p>Categorize your posts in a way you want using tags.</p></br></br>
+		<a class="btn" href="{% url 'main:tags_show' %}">GO <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>		
+	</div>		
 
-<div>
-	<p class="site-description">nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/nm,dnfdmnfdm/nd/nfdm/nfmdnfmd/nfdm/nfddfm/dndm/sn/N/DMMNDF,/NFD/NF/NFDNM,/FND/</p>
-</div>
+{% else %}
+	<div>
+		<p class="site-description">Welcome to the online space in which your photos, memories/notes and links on your past and about-to-come travels can be collected! Sing up and create your personal travel notebook.</p>
+	</div>
+{% endif %}
 
 {% endblock %}
 

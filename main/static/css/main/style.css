@@ -14,14 +14,17 @@ body {
   width:100%;
   background: url(images/sunrise.jpg) no-repeat center fixed;
   background-size: cover;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.9;
   color: #19334d;
   margin: 0;
   word-wrap: break-word;
  }
 
+h1, h2, h3 {
+  font-family: 'Lato', sans-serif;
+}
 
 h1 {
   font-size: 50px;
@@ -42,6 +45,7 @@ h2 {
 
 h3 {
   font-size: 25px;
+  font-weight: 100;
 }
 
 
@@ -59,8 +63,9 @@ a {
 }
 
 a:hover {
-  color: #ffffff;
+  color: #0000FF;
   text-decoration: none;
+  font-weight: 180;
 }
 
 span a {
@@ -141,11 +146,12 @@ form {
 }
 
 .top-menu {
-  font-size: 15px;
+  font-size: 16px;
   margin-left: 15px;
   float: right;
   color: #19334d;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .navbar-brand {
@@ -153,6 +159,39 @@ form {
   text-decoration: none;
 }
 
+.site-intro-box {
+  border: 1px solid #000;
+  margin: 10px;
+  text-align: center;
+  padding: 50px 10px 10px 10px;
+  width: 350px;
+  height: 400px;
+  display: block;
+  float:left;
+}
+
+.site-intro-box h2 {
+  padding: 10px;
+  margin-top: 30px;
+}
+
+.site-intro-box p {
+  font-size: 18px;
+}
+
+.site-intro-box i {
+  font-size: 70px;
+}
+
+.site-intro-box .btn {
+  width: 150px;
+  background-color:rgba(255,165,0,0.8); 
+  color:rgba(246,243,243,1); 
+}
+
+.site-intro-box .btn  i {
+  font-size: 15px;
+}
 /*tags*/
 .tags-container {
   display: flex; 
@@ -169,13 +208,21 @@ form {
 }
 
 .tag-in-list a {
-  color: #ffffff;
+  color:rgba(246,243,243,1); 
+  text-transform: uppercase;
+  
 }
+
 .tag-in-list.small {
   padding: 5px 10px 5px 10px;
   font-size: small;
 }
 
+.tag-in-list .big-tag {
+  padding: 15px;
+  margin: 30px 10px 30px 10px;
+  
+}
 
 .img-responsive {
   display: block;
@@ -223,6 +270,9 @@ form {
   margin:30px;
 }
 
+.btn-tag a {
+  color: #ffffff;
+}
 .registration-info {
   margin-top:200px;
   margin-left: 100px;
@@ -235,3 +285,4 @@ form {
 .no-items-info p {
   font-size:20px;
 }
+
