@@ -4,17 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from geopy.geocoders import Nominatim
+
+# from geopy.geocoders import Nominatim
+from geopy import geocoders
+
 
 
 from .models import Post, Trip, Tag
 from .forms import PostForm, TagForm, TripForm
 
 User = get_user_model()
-
+g_api_key = 'AIzaSyCbHOjtwPZMpJkxE6EU_YYBfjaB2obZV8w'
 
 def geocode(location_to_geocode):
-    geolocator = Nominatim()
+    # geolocator = Nominatim()
+    geolocator = geocoders.GoogleV3(g_api_key) 
     location = geolocator.geocode(location_to_geocode)
     if location == None:
         pass
