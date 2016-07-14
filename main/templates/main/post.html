@@ -26,7 +26,7 @@
         </div>    
         <div class="post-buttons-set">
             <a class="post-btn" href="{% url 'main:post_edit' pk=post.pk %}">Edit post</a>
-            <a class="post-btn" href="{% url 'main:post_delete' pk=post.pk %}">Delete post</a>
+            <a class="post-btn" href="{% url 'main:post_delete' pk=post.pk %}" onclick="return confirm('Are you sure you want to delete this Post?');">Delete post</a>
             <a class="post-btn btn-post-detail" href="{% url 'main:post_detail' post.id %}">Details ...</a>
         </div> 
     </div>

@@ -18,7 +18,7 @@
         <div class="trip-buttons-set">
            <a class="btn" href="{% url 'main:post_new' %}">Add post</a>
            <a class="btn" href="{% url 'main:trip_edit' slug=trip.slug %}">Edit trip</a>
-           <a class="btn" href="{% url 'main:trip_delete' slug=trip.slug %}">Delete trip</a>
+           <a class="btn" href="{% url 'main:trip_delete' slug=trip.slug %}" onclick="return confirm('Are you sure you want to delete this Trip?');">Delete trip</a>
         </div>   
         <div class="trip-text-container">
             <p class="trip-text">{{ trip.text|linebreaks }}</p>

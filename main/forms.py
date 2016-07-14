@@ -15,6 +15,8 @@ class TagForm(forms.ModelForm):
 		model = Tag
 		fields = ('value',)
 
+		
+
 class PostForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		owner = kwargs.pop('user')

@@ -19,10 +19,11 @@ g_api_key = 'AIzaSyCbHOjtwPZMpJkxE6EU_YYBfjaB2obZV8w'
 def geocode(location_to_geocode):
     # geolocator = Nominatim()
     geolocator = geocoders.GoogleV3(g_api_key) 
-    location = geolocator.geocode(location_to_geocode)
-    if location == None:
+    
+    if location_to_geocode == None:
         pass
-    else:    
+    else:   
+        location = geolocator.geocode(location_to_geocode) 
         coordinates = [location.longitude, location.latitude]
     #     lon = location.longitude
     #     lat = location.latitude
@@ -34,7 +35,7 @@ def geocode(location_to_geocode):
 
 def image_url(self):
     if self.image and hasattr(self.image, 'url'):
-        return self.image.url
+        return self.image
     else:
         return '/static/css/main/images/alt_luggage.jpg'        
            
@@ -198,7 +199,7 @@ def trip_delete(request, slug):
     else:
         trip.delete()
         messages.success(request, 'Trip deleted!')
-    return redirect('main:trips_show')    
+    return redirect('main:trips_show')      
 
 
 @login_required
@@ -291,6 +292,16 @@ def trips_show(request):
 
 
 @login_required
+def tag_delete(request, tag_name): 
+    tag = get_object_or_404(Tag, value=tag_name)
+    if tag.owner.id != request.user.id:
+        raise Http404
+    else:
+        tag.delete()
+        messages.success(request, 'Post deleted!') 
+    return redirect('main:tags_show')   
+
+@login_required
 def tag_detail(request, tag_name):
     tags = Tag.objects.filter(owner=request.user)
     tag = get_object_or_404(tags, value=tag_name)
@@ -328,7 +339,7 @@ def map(request):
         if trip.image:
             popup_content = '<img src="{}" alt="Photo" class="popup-img"/><div class="popup-text"><p>Country: {}</p><p>Trip: {}</p></div>'.format(trip.image.url, trip.country, trip.title) 
         else:
-            popup_content = '<div class="popup-text"><p>Country: {}</p><p>Trip: {}</p></div>'.format(trip.country, trip.title)             
+            popup_content = '<div class="popup-text"><p>Country: {}</p><p>Trip: {}</p></div>'.format(trip.country, trip.title)  #not used           
         
 
         if not trip.lon:

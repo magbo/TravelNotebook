@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 
+
 def upload_location(instance, filename):
     return "%s/%s" %(instance.id, filename) #change to owner for trips then id form posts
 
@@ -26,7 +27,7 @@ class Trip(models.Model):
         return self.title
 
 class Tag(models.Model):
-    value = models.CharField(max_length=20)
+    value = models.SlugField(max_length=20)
     owner = models.ForeignKey(User, null=True, blank=True)
 
     def __str__(self):
