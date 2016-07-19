@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 # from geopy.geocoders import Nominatim
 from geopy import geocoders
+from geopy.exc import GeocoderQueryError
+
 
 
 
@@ -18,20 +20,29 @@ g_api_key = 'AIzaSyCbHOjtwPZMpJkxE6EU_YYBfjaB2obZV8w'
 
 def geocode(location_to_geocode):
     # geolocator = Nominatim()
-    geolocator = geocoders.GoogleV3(g_api_key) 
-    
-    if location_to_geocode == None:
-        pass
-    else:   
-        location = geolocator.geocode(location_to_geocode) 
-        coordinates = [location.longitude, location.latitude]
-    #     lon = location.longitude
-    #     lat = location.latitude
-    #     coor_list = (str(lon), str(lat))
-    #     coordinates = (",").join(coor_list)
+     
+    if location_to_geocode is not None:
+        try: 
+            g = geocoders.GoogleV3(g_api_key)
+            location = g.geocode(location_to_geocode)
+            coordinates = [location.longitude, location.latitude]
+        except (AttributeError, UnboundLocalError, ValueError, GeocoderQueryError): 
+            longitude = None
+            latitude = None
+            coordinates = None   
+        return coordinates    
+    # if location_to_geocode == None:
+    #     pass
+    # else:   
+    #     location = geolocator.geocode(location_to_geocode) 
+    #     coordinates = [location.longitude, location.latitude]
+    # #     lon = location.longitude
+    # #     lat = location.latitude
+    # #     coor_list = (str(lon), str(lat))
+    # #     coordinates = (",").join(coor_list)
 
-        print("coordinates: ", coordinates)
-        return coordinates
+    #     print("coordinates: ", coordinates)
+    #     return coordinates
 
 def image_url(self):
     if self.image and hasattr(self.image, 'url'):
