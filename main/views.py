@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 # from geopy.geocoders import Nominatim
 from geopy import geocoders
 from geopy.exc import GeocoderQueryError
-
+import pdb
 
 
 
@@ -24,6 +24,7 @@ def geocode(location_to_geocode):
     if location_to_geocode is not None:
         try: 
             g = geocoders.GoogleV3(g_api_key)
+            # pdb.set_trace()
             location = g.geocode(location_to_geocode)
             coordinates = [location.longitude, location.latitude]
         except (AttributeError, UnboundLocalError, ValueError, GeocoderQueryError): 
